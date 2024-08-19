@@ -7,14 +7,15 @@ import {
   Patch,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 
 @Controller('student')
 export class StudentController {
-  @Get()
-  findAllStudents() {
-    return 'All Students Informations';
-  }
+  //   @Get()
+  //   findAllStudents() {
+  //     return 'All Students Informations';
+  //   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -44,5 +45,11 @@ export class StudentController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return `This action removes a #${id} student`;
+  }
+
+  @Get()
+  findAll(@Query() query) {
+    const { limit, offset } = query;
+    return `All Students (limit: ${limit} items) -- (offset: ${offset} items)`;
   }
 }
