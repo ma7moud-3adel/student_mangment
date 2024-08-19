@@ -9,9 +9,12 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { StudentService } from './student.service';
 
 @Controller('student')
 export class StudentController {
+  constructor(private readonly studetService: StudentService) {}
+
   //   @Get()
   //   findAllStudents() {
   //     return 'All Students Informations';
