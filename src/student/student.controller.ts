@@ -19,40 +19,60 @@ export class StudentController {
   //   findAllStudents() {
   //     return 'All Students Informations';
   //   }
+  @Get()
+  findAllStudents() {
+    return this.studetService.findAll();
+  }
 
+  //   @Get(':id')
+  //   findOne(@Param('id') id: string) {
+  //     return `This action returns a #${id} student`;
+  //   }
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a #${id} cat`;
+    return this.studetService.findOne(id);
   }
 
-  @Post()
-  create(@Body() body) {
-    return body;
-  }
+  //   @Post()
+  //   create(@Body() body) {
+  //     return body;
+  //   }
 
   //   @Post()
   //   create(@Body('name') body) {
   //     return body;
   //   }
+  @Post()
+  create(@Body() body) {
+    return this.studetService.create(body);
+  }
 
   //   @Put(':id')
   //   update(@Param('id') id: string, @Body() body) {
   //     return `This action updates a #${id} cat`;
   //   }
 
+  //   @Patch(':id')
+  //   update(@Param('id') id: string, @Body() body) {
+  //     return `This action updates a #${id} studen`;
+  //   }
   @Patch(':id')
   update(@Param('id') id: string, @Body() body) {
-    return `This action updates a #${id} studen`;
+    return this.studetService.update(id, body);
   }
 
+  //   @Delete(':id')
+  //   remove(@Param('id') id: string) {
+  //     return `This action removes a #${id} student`;
+  //   }
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This action removes a #${id} student`;
+    return this.studetService.remove(id);
   }
 
-  @Get()
-  findAll(@Query() query) {
-    const { limit, offset } = query;
-    return `All Students (limit: ${limit} items) -- (offset: ${offset} items)`;
-  }
+  //   @Get()
+  //   findAll(@Query() query) {
+  //     const { limit, offset } = query;
+  //     return `All Students (limit: ${limit} items) -- (offset: ${offset} items)`;
+  //   }
 }
