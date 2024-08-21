@@ -31,7 +31,7 @@ export class StudentController {
   //     return `This action returns a #${id} student`;
   //   }
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.studetService.findOne(id);
   }
 
