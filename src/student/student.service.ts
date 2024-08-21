@@ -10,7 +10,6 @@ import { Student } from './entities/student.entity';
 import { NotFoundError } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { promises } from 'dns';
 import { CreateStudentDto } from './dto/create-student.dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto/update-student.dto';
 
