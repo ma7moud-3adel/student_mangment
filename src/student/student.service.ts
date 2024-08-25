@@ -12,12 +12,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateStudentDto } from './dto/create-student.dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto/update-student.dto';
+import { Course } from './entities/course.entity';
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectRepository(Student)
     private readonly studentRepository: Repository<Student>,
+    @InjectRepository(Course)
+    private readonly courseRepository: Repository<Course>,
   ) {}
   // private Students: Student[] = [
   //   {
@@ -36,7 +39,9 @@ export class StudentService {
 
   async findAll(): Promise<Student[]> {
     // return this.Students;
-    return this.studentRepository.find();
+    return this.studentRepository.find({
+      relations: ['courses'],
+    });
   }
   async findOne(id: number): Promise<Student> {
     // const studen = this.Students.find((x) => x.id === +id);
@@ -74,5 +79,13 @@ export class StudentService {
 
   async remove(id: string) {
     await this.studentRepository.delete(id);
+  }
+
+  private async preloadCourseByName(name: string): Promise<Course> {
+    const course = await this.courseRepository.findOne({
+      where: { name },
+    });
+    if (course) return course;
+    else return this.courseRepository.create({ name });
   }
 }
