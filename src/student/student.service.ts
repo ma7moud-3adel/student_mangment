@@ -60,16 +60,28 @@ export class StudentService {
   }
 
   async create(createStudentDto: CreateStudentDto) {
+    const courses = await Promise.all(
+      createStudentDto.courses.map((x) => this.preloadCourseByName(x)),
+    );
+
     const student = this.studentRepository.create({
       ...createStudentDto,
+      courses,
     });
+
     return this.studentRepository.save(student);
   }
 
   async update(id: string, updateStudentDto: UpdateStudentDto) {
+    const courses =
+      updateStudentDto.courses &&
+      (await Promise.all(
+        updateStudentDto.courses.map((x) => this.preloadCourseByName(x)),
+      ));
     const updateStudent = await this.studentRepository.preload({
       id: +id,
       ...updateStudentDto,
+      courses,
     });
     if (!updateStudent) {
       throw new NotFoundException(`This Student ${id} Is Not Found`);
